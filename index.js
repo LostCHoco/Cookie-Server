@@ -21,7 +21,6 @@ const roomRepository = [
 const roomID = [];
 const chatRepository = {};
 const users = [];
-const userInfo = {};
 
 function sendToAll(socket, key, data) {
   socket.broadcast.emit(key, data);
