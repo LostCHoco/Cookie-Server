@@ -8,16 +8,7 @@ const io = new Server(PORT, {
   },
 });
 console.log(`server on => http://localhost:${PORT}`);
-const roomRepository = [
-  {
-    id: "test",
-    title: "Test Room",
-    password: "1234",
-    current: 0,
-    max: 8,
-    userList: {},
-  },
-];
+const roomRepository = [];
 const roomID = [];
 const chatRepository = {};
 const users = [];
