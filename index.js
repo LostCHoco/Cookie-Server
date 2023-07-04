@@ -16,7 +16,14 @@ function sendToAll(socket, key, data) {
   socket.broadcast.emit(key, data);
   socket.emit(key, data);
 }
-
+function countLoginState(arr) {
+  const listArray = Object.values(arr);
+  let loginCount = 0;
+  listArray.forEach((item) => {
+    if (item.isLogin) ++loginCount;
+  });
+  return loginCount;
+}
 //클라이언트에서 유저 접속 했을 때 이벤트 발생
 io.on("connection", (socket) => {
   // console.log(socket.id);
@@ -73,12 +80,7 @@ io.on("connection", (socket) => {
     if (roomRepository[idx].password === "") {
       roomRepository[idx].userList[data.user.uid].isLogin = true;
     }
-    const listArray = Object.values(roomRepository[idx].userList);
-    let loginCount = 0;
-    listArray.forEach((item) => {
-      if (item.isLogin) ++loginCount;
-    });
-    roomRepository[idx].current = loginCount;
+    roomRepository[idx].current = countLoginState(roomRepository[idx].userList);
     sendToAll(socket, "update-room", roomRepository);
     // console.log("list", roomRepository[idx]);
     // console.log("info : ", userInfo);
@@ -88,6 +90,7 @@ io.on("connection", (socket) => {
     const idx = roomRepository.findIndex((item) => item.id === id);
     //data[0]:roomId, data[1]:UID
     roomRepository[idx].userList[uid].isLogin = true;
+    roomRepository[idx].current = countLoginState(roomRepository[idx].userList);
     sendToAll(socket, "update-room", roomRepository);
   });
   //접속 해제 이벤트
