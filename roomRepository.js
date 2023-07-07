@@ -39,7 +39,6 @@ export const setID = (arr = []) => {
     // console.log(`아이디 중복: ${currentID}`);
     currentID = newID();
   }
-  console.log(currentID, arr.length);
   return currentID;
 };
 

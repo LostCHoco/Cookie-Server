@@ -1,10 +1,10 @@
 import { Server } from "socket.io";
-import { setID, updateUserlist } from "./roomRepository.js";
+import { setID } from "./roomRepository.js";
 
 const PORT = 3333;
 const io = new Server(PORT, {
   cors: {
-    origin: ["http://localhost:3000", "https://cookiechat-4df6b.web.app"],
+    origin: "https://cookiechat-4df6b.web.app",
   },
 });
 console.log(`server on => http://localhost:${PORT}`);
